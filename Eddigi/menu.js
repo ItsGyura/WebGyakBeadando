@@ -2,7 +2,7 @@ const fejlec=`<header>
 <h1>Web Gyakorlati Beadandó</h1>
 <nav>
 <a href="index.html">Főoldal</a>
-<a href="kepek.html">Képek</a>
+<a href="kepek.php">Képek</a>
 <a href="kapcsolat.html">Kapcsolat</a>
 <a href="Crud.html">Crud</a>
 <a href="bejelentkezes.html">Bejelentkezés</a>
