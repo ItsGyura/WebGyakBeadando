@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fő oldal</title>
+    <title>Web Gyakorlati Beadandó</title>
     <link rel="stylesheet" href="style.css">
     <script src="menu.js"></script>
 </head>
 <body>
+<div class="tablazat" style="width: 500px;">
+    <h2>Bejelentkezés</h2>
+    <br>
 <form action="login.php">
-<label for="felhasznalonev">Felhasználónév:</label><br>
+<label for="felhasznalonev">Felhasználónév:</label>
 <input type="text" id="felhasznalonev" required>
 <br><br>
-<label for="jelszo">Jelszó:</label><br>
+<label for="jelszo">Jelszó:</label>
 <input type="text" id="jelszo" required>
 <br><br>    
-<div><button type="submit">Belépés</button> <a href="regiszt.html">Regisztráció</a></div>
+<div><button type="submit" class="gomb">Belépés</button> <a id="regisztral" href="regiszt.html">Regisztráció</a></div>
+</div>
 </form>
 </body>
 </html>
