@@ -4,7 +4,7 @@ const fejlec=`<header>
 <a href="index.html">Főoldal</a>
 <a href="kepek.php">Képek</a>
 <a href="kapcsolat.html">Kapcsolat</a>
-<a href="Crud.html">Crud</a>
+<a href="crud.html">Crud</a>
 <a href="bejelentkezes.html">Bejelentkezés</a>
 </nav>
 </header>`;
