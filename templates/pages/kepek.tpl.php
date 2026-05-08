@@ -33,7 +33,7 @@ $images = galeriaKepLista(['uploads']);
         <?php endif; ?>
 
         <?php if (isset($_SESSION['login'])): ?>
-            <form class="upload-form" action="/webgyakbeadando/logicals/upload.php" method="post" enctype="multipart/form-data">
+            <form class="upload-form" action="/logicals/upload.php" method="post" enctype="multipart/form-data">
                 <label for="fileToUpload">Új kép feltöltése:</label>
                 <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
                 <button type="submit" name="submit" class="gomb">Feltöltés</button>
