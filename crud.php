@@ -6,7 +6,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch($method) {
     case 'GET':
-        
         $stmt = $pdo->query("SELECT * FROM F1");
         $gp = $stmt->fetchAll();
         echo json_encode($gp);
@@ -27,6 +26,7 @@ switch($method) {
         $stmt->execute([$data->nev, $data->helyszin,$data->datum,$data->azon]);
         echo json_encode(["message" =>"Sikeres módosítás"]);
         break;
+
     case 'DELETE':
         $data = json_decode(file_get_contents("php://input"));
         if(!empty($data->azon)) {

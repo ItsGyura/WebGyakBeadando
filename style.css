@@ -17,6 +17,7 @@ body {
     color: #15151e;
 }
 
+main,
 #root {
     display: flex;
     flex-direction: column;
@@ -30,7 +31,6 @@ header {
     border-bottom: 8px solid #e10600;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    transition: border-radius 0.3s ease;
     flex-shrink: 0;
 }
 
@@ -41,7 +41,6 @@ header h1 {
     text-transform: uppercase;
     font-style: italic;
     margin: 5px 0 20px;
-    cursor: default;
 }
 
 nav {
@@ -51,34 +50,42 @@ nav {
     flex-wrap: wrap;
 }
 
-header a {
+header a,
+.gomb-link {
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.8rem;
-    padding: 10px 30px;
+    padding: 10px 20px;
     margin: 5px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
     display: inline-block;
+    background: transparent;
 }
 
-header a:hover {
+header a:hover,
+.gomb-link:hover {
     background-color: #e10600;
     border-color: #e10600;
-    transform: skewX(-15deg);
     color: #15151e;
 }
 
-main { 
-    flex: 1 0 auto; 
+.user-status {
+    color: #ffffff;
+    margin-top: 12px;
+    font-size: 0.95rem;
+}
+
+.user-status--guest {
+    opacity: 0.85;
 }
 
 .versenyek, .tablazat {
     max-width: 1000px;
     margin: 20px auto;
-    width: 90%;
+    width: min(90%, 1000px);
     background: white;
     padding: 25px;
     border-radius: 15px;
@@ -94,22 +101,28 @@ label {
     color: #333;
 }
 
-input[type="text"], input[type="date"] {
+input[type="text"], input[type="date"], input[type="password"], input[type="email"], textarea, input[type="file"] {
     width: 100%;
     padding: 10px;
     border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s;
-    cursor:pointer;
+    cursor: pointer;
+    background: #fff;
 }
 
-input:focus {
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
     outline: none;
     border-color: #e10600;
 }
 
-input[type="submit"], .gomb {
+input[type="submit"], .gomb, button {
     background-color: #15151e;
     color: white;
     padding: 12px 30px;
@@ -122,7 +135,7 @@ input[type="submit"], .gomb {
     margin-top: 15px;
 }
 
-input[type="submit"]:hover, .gomb:hover {
+input[type="submit"]:hover, .gomb:hover, button:hover {
     background-color: #e10600;
     color: #15151e;
 }
@@ -148,19 +161,21 @@ th {
 td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
-    cursor: default;
+    vertical-align: top;
 }
 
 tr:hover { background-color: #f9f9f9; }
 
-.ellenorzes {
+.ellenorzes,
+.auth-message {
     color: #e10600;
-    margin-left: 10px;
-    font-size: 0.8rem;
-    font-style: italic;
+    margin: 10px 0;
+    font-size: 0.95rem;
 }
 
-.hide { display: none; }
+.auth-message--success {
+    color: #167c3b;
+}
 
 footer {
     padding: 20px;
@@ -174,7 +189,7 @@ footer {
     margin-top: auto;
 }
 
-a#modosit, a#torol,a#regisztral,a#megse {
+a#modosit, a#torol, a#regisztral, a#megse {
     color: #15151e;
     text-decoration: none;
     font-weight: bold;
@@ -183,7 +198,60 @@ a#modosit, a#torol,a#regisztral,a#megse {
 
 td a#modosit { margin-right: 10px; }
 a#regisztral, a#megse { margin-left: 10px; }
-a#modosit:hover, a#torol:hover, a#regisztral:hover,a#megse:hover { color: #e10600; }
+a#modosit:hover, a#torol:hover, a#regisztral:hover, a#megse:hover { color: #e10600; }
 
+.auth-box, .contact-card, .gallery-card {
+    max-width: 700px;
+}
 
+.upload-form {
+    margin: 15px 0 25px;
+}
 
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #f7f7f7;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.gallery-item img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.submission-box {
+    margin: 15px 0 20px;
+    line-height: 1.7;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header a,
+    .gomb-link,
+    .gomb,
+    button {
+        width: 100%;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

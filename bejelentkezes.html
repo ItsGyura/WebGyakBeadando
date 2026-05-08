@@ -1,25 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Gyakorlati Beadandó</title>
     <link rel="stylesheet" href="style.css">
-    <script src="menu.js"></script>
+    <script src="menu.js" ></script>
 </head>
 <body>
-<div class="tablazat" style="width: 500px;">
+<div class="tablazat auth-box">
     <h2>Bejelentkezés</h2>
-    <br>
-<form action="login.php">
-<label for="felhasznalonev">Felhasználónév:</label>
-<input type="text" id="felhasznalonev" required>
-<br><br>
-<label for="jelszo">Jelszó:</label>
-<input type="text" id="jelszo" required>
-<br><br>    
-<div><button type="submit" class="gomb">Belépés</button> <a id="regisztral" href="regiszt.html">Regisztráció</a></div>
+    <p id="auth-message" class="auth-message" aria-live="polite"></p>
+    <form action="login.php" method="post">
+        <label for="felhasznalonev">Felhasználónév:</label>
+        <input type="text" id="felhasznalonev" name="felhasznalo" autocomplete="username">
+        <br><br>
+        <label for="jelszo">Jelszó:</label>
+        <input type="password" id="jelszo" name="jelszo" autocomplete="current-password">
+        <br><br>
+        <div>
+            <button type="submit" class="gomb">Belépés</button>
+            <a id="regisztral" href="regiszt.html">Regisztráció</a>
+        </div>
+    </form>
 </div>
-</form>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const message = document.getElementById('auth-message');
+
+    if (params.get('login') === 'hibas') {
+        message.textContent = 'Hibás felhasználónév vagy jelszó.';
+    } else if (params.get('login') === 'hiba') {
+        message.textContent = 'Bejelentkezés közben hiba történt.';
+    } else if (params.get('reg') === 'sikeres') {
+        message.textContent = 'A regisztráció sikeres, most már be tud lépni.';
+    }
+</script>
 </body>
 </html>

@@ -1,13 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fő oldal</title>
+    <title>Kapcsolat</title>
     <link rel="stylesheet" href="style.css">
     <script src="menu.js"></script>
 </head>
 <body>
-    
+<main>
+    <section class="tablazat contact-card">
+        <h2>Kapcsolat</h2>
+        <p>Írjon üzenetet az oldal tulajdonosának. </p>
+
+        <p id="contact-error" class="auth-message" aria-live="polite"></p>
+
+        <form id="contact-form" action="uzenetek.php" method="post">
+            <label for="nev">Név:</label>
+            <input type="text" id="nev" name="nev">
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email">
+
+            <label for="targy">Tárgy:</label>
+            <input type="text" id="targy" name="targy">
+
+            <label for="uzenet">Üzenet:</label>
+            <textarea id="uzenet" name="uzenet" rows="6"></textarea>
+
+            <button type="submit" class="gomb">Üzenet küldése</button>
+        </form>
+    </section>
+</main>
+
+<script>
+(function () {
+    const form = document.getElementById('contact-form');
+    const errorBox = document.getElementById('contact-error');
+
+    const showError = (message) => {
+        errorBox.textContent = message;
+    };
+
+    form.addEventListener('submit', function (event) {
+        const nev = document.getElementById('nev').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const targy = document.getElementById('targy').value.trim();
+        const uzenet = document.getElementById('uzenet').value.trim();
+
+        const errors = [];
+
+        if (nev.length < 2) {
+            errors.push('A név legalább 2 karakter legyen.');
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errors.push('Adjon meg érvényes e-mail címet.');
+        }
+
+        if (errors.length > 0) {
+            event.preventDefault();
+            showError(errors.join(' '));
+        } else {
+            errorBox.textContent = '';
+        }
+    });
+})();
+</script>
 </body>
 </html>

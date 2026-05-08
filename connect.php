@@ -9,9 +9,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $host = 'localhost';
-$dbname = '';
-$user = '';
-$pass = '';
+$dbname = 'dbdb';
+$user = 'dbdb';
+$pass = 'mindenis:(';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";

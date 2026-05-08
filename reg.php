@@ -1,43 +1,45 @@
 <?php
-if(isset($_POST['felhasznalo']) && isset($_POST['jelszo']) && isset($_POST['vezeteknev']) && isset($_POST['utonev'])) {
-    try {
-        // Kapcsolódás
-        $dbh = new PDO('mysql:host=localhost;dbname=gyakorlat7', 'root', '',
-                        array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-        $dbh->query('SET NAMES utf8 COLLATE utf8_hungarian_ci');
-        
-        // Létezik már a felhasználói név?
-        $sqlSelect = "select id from felhasznalok where bejelentkezes = :bejelentkezes";
-        $sth = $dbh->prepare($sqlSelect);
-        $sth->execute(array(':bejelentkezes' => $_POST['felhasznalo']));
-        if($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $uzenet = "A felhasználói név már foglalt!";
-            $ujra = "true";
-        }
-        else {
-            // Ha nem létezik, akkor regisztráljuk
-            $sqlInsert = "insert into felhasznalok(id, csaladi_nev, uto_nev, bejelentkezes, jelszo)
-                          values(0, :csaladinev, :utonev, :bejelentkezes, :jelszo)";
-            $stmt = $dbh->prepare($sqlInsert); 
-            $stmt->execute(array(':csaladinev' => $_POST['vezeteknev'], ':utonev' => $_POST['utonev'],
-                                 ':bejelentkezes' => $_POST['felhasznalo'], ':jelszo' => sha1($_POST['jelszo']))); 
-            if($count = $stmt->rowCount()) {
-                $newid = $dbh->lastInsertId();
-                $uzenet = "A regisztrációja sikeres.<br>Azonosítója: {$newid}";                     
-                $ujra = false;
-            }
-            else {
-                $uzenet = "A regisztráció nem sikerült.";
-                $ujra = true;
-            }
-        }
-    }
-    catch (PDOException $e) {
-        $uzenet = "Hiba: ".$e->getMessage();
-        $ujra = true;
-    }      
+require_once 'connect.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: regiszt.html');
+    exit;
 }
-else {
-    header("Location: .");
+
+$felhasznalo = trim($_POST['felhasznalo'] ?? '');
+$jelszo = trim($_POST['jelszo'] ?? '');
+$vezeteknev = trim($_POST['vezeteknev'] ?? '');
+$utonev = trim($_POST['utonev'] ?? '');
+
+if ($felhasznalo === '' || $jelszo === '' || $vezeteknev === '' || $utonev === '') {
+    header('Location: regiszt.html?reg=hibas');
+    exit;
+}
+
+try {
+    $sqlSelect = "SELECT id FROM felhasznalok WHERE bejelentkezes = :bejelentkezes";
+    $sth = $pdo->prepare($sqlSelect);
+    $sth->execute([':bejelentkezes' => $felhasznalo]);
+
+    if ($sth->fetch()) {
+        header('Location: regiszt.html?reg=foglalt');
+        exit;
+    }
+
+    $sqlInsert = "INSERT INTO felhasznalok (csaladi_nev, uto_nev, bejelentkezes, jelszo)
+                  VALUES (:csaladi_nev, :uto_nev, :bejelentkezes, SHA1(:jelszo))";
+    $stmt = $pdo->prepare($sqlInsert);
+    $stmt->execute([
+        ':csaladi_nev' => $vezeteknev,
+        ':uto_nev' => $utonev,
+        ':bejelentkezes' => $felhasznalo,
+        ':jelszo' => $jelszo
+    ]);
+
+    header('Location: bejelentkezes.html?reg=sikeres');
+    exit;
+} catch (PDOException $e) {
+    header('Location: regiszt.html?reg=hiba');
+    exit;
 }
 ?>
