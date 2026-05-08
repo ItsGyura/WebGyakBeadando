@@ -50,8 +50,7 @@ nav {
     flex-wrap: wrap;
 }
 
-header a,
-.gomb-link {
+header a,.gomb-link {
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
@@ -69,6 +68,7 @@ header a:hover,
 .gomb-link:hover {
     background-color: #e10600;
     border-color: #e10600;
+    transform: skewX(-15deg);
     color: #15151e;
 }
 

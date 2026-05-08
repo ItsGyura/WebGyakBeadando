@@ -1,3 +1,4 @@
+    <div class="tablazat">
     <form action = "belep" method = "post">
       <fieldset>
         <legend>Bejlentkezés</legend>
@@ -21,3 +22,4 @@
         <br>&nbsp;
       </fieldset>
     </form>
+</div>
