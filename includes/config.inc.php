@@ -25,6 +25,8 @@ $oldalak = array(
     'kilepes' => array('fajl' => 'kilepes', 'szoveg' => 'Kilépés', 'menun' => array(0,1)),
     'belep' => array('fajl' => 'belep', 'szoveg' => '', 'menun' => array(0,0)),
     'regisztral' => array('fajl' => 'regisztral', 'szoveg' => '', 'menun' => array(0,0)),
+    'crudtorles' => array('fajl' => 'crudtorles', 'szoveg' => '', 'menun' => array(0,0)),
+    'crudmodosit' => array('fajl' => 'crudmodosit', 'szoveg' => '', 'menun' => array(0,0)),
     
 );
 

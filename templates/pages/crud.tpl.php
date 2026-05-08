@@ -1,92 +1,56 @@
 
+<?php 
+ require_once ('includes/connect.php');
+ if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(!empty($_POST['palya']) && !empty($_POST['helyszin']) && !empty($_POST['datum']) ) {
+            $stmt = $dbh->prepare("INSERT INTO F1 (nev,helyszin,datum) VALUES (?, ?, ?)");
+            $stmt->execute([$_POST['palya'], $_POST['helyszin'],$_POST['datum']]);
+        }
+ }
+ $stmt = $dbh->query("SELECT * FROM F1");
+    $gp = $stmt->fetchAll();
+
+
+
+?>
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <main id="root"></main>
 <script type="text/babel">
+    
     const { useState, useEffect } = React;
     const API_URL = '/logicals/api.php';
 
     function App() {
         const [gp, setGp] = useState([]);
-        const [nev, setNev] = useState("");
-        const [datum, setDatum] = useState("");
-        const [helyszin, setHelyszin] = useState("");
-        const [mod,setMod]=useState(null);
-
         const betolt = () => {
-            fetch(API_URL)
-                .then(res => res.json())
-                .then(data => { if (Array.isArray(data)) setGp(data); });
+        setGp(<?=json_encode($gp)?>); 
         };
 
-        useEffect(() => { betolt(); }, []);
-
-        const hozzaad = () => {
-            if (nev && helyszin && datum) {
-                fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nev: nev, helyszin: helyszin, datum: datum })
-                }).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); });
-            }
-        };
-
-        const torol = (id) => {
-            fetch(API_URL, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ azon: id })
-            }).then(() => betolt());
-        };
-
-        const modosit = (idx) =>{
-            setNev(gp[idx].nev);
-            setHelyszin(gp[idx].helyszin);
-            setDatum(gp[idx].datum);
-            setMod(gp[idx].azon);
-        };
-
-        const megse =() =>{
-            setNev("");
-            setHelyszin("");
-            setDatum("");
-            setMod(null);
-        };
-
-        const modositveg=() =>{
-            fetch(API_URL,{
-                method:'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nev: nev, helyszin: helyszin, datum: datum, azon: mod })
-            }).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); setMod(null); });
-        };
-
+        useEffect(() => { betolt(); }, []);     
         return (
             <>
             <div className="tablazat">
                 <h2>Versenyek </h2>
+                <form action="/crud" method="POST">
                 <div>
                     <label htmlFor="palya">Verseny neve</label>
-                    <input type="text" name="palya" value={nev} onChange={(e) => setNev(e.target.value)} required />
+                    <input type="text" name="palya" required />
                 </div>
                 <div>
                     <label htmlFor="helyszin">Helyszín</label>
-                    <input type="text" name="helyszin" value={helyszin} onChange={(e) => setHelyszin(e.target.value)} required />
+                    <input type="text" name="helyszin"  required />
                 </div>
                 <div>
                     <label htmlFor="datum">Dátum</label>
-                    <input type="date" name="datum" required value={datum} onChange={(e) => setDatum(e.target.value)} />
+                    <input type="date" name="datum" required  />
                 </div>
                 <div>
-                    { mod ?
-                        <>
-                            <button className="gomb" onClick={modositveg}>Módosítás</button>
-                            <button className="gomb" onClick={megse}>Mégsem</button>
-                        </>
-                        : <button className="gomb" onClick={hozzaad}>Rögzítés</button>
-                    }
+                    
+                    <button className="gomb" >Rögzítés</button>
                 </div>
+                </form>
             </div>
 
             <div className="tablazat">
@@ -106,8 +70,11 @@
                                 <td>{palya.helyszin}</td>
                                 <td>{palya.datum}</td>
                                 <td>
-                                    <button className="gomb" onClick={() => modosit(idx)}>Módosítás</button>
-                                    <button className="gomb" onClick={() => torol(palya.azon)}>Törlés</button>
+                                    <a href={`/crudmodosit?palya=${palya.nev}&helyszin=${palya.helyszin}&datum=${palya.datum}&azon=${palya.azon}`}><button className="gomb" >Módosítás</button></a>
+                                    <form action="/crudtorles" method="POST">
+                                    <input type="text" name="azon" value={palya.azon} readOnly hidden/>
+                                    <button className="gomb">Törlés</button>
+                                    </form>
                                 </td>
                             </tr>
                         ))}
