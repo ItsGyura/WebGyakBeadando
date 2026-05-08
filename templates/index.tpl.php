@@ -23,7 +23,7 @@
 						<?php } ?>
 					<?php } ?>
             </nav>
-			<?php if(isset($_SESSION['login'])) { ?>Bejlentkezve: <strong><?= $_SESSION['csn']." ".$_SESSION['un']." (".$_SESSION['login'].")" ?></strong><?php } ?>
+			<p class="nevkiiras"><?php if(isset($_SESSION['login'])) { ?>Bejlentkezve: <strong><?= $_SESSION['csn']." ".$_SESSION['un']." (".$_SESSION['login'].")" ?></strong><?php } ?></p>
         </header>
     <div id="wrapper">
         <div id="content">

@@ -62,7 +62,7 @@ header a,
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
     display: inline-block;
-    background: transparent;
+    background: #15151e;
 }
 
 header a:hover,
@@ -254,4 +254,8 @@ a#modosit:hover, a#torol:hover, a#regisztral:hover, a#megse:hover { color: #e106
         flex-direction: column;
         align-items: stretch;
     }
+}
+.nevkiiras{
+    color: white;
+
 }
