@@ -8,7 +8,7 @@
 </div>
     <div class="col-12 col-md-12 col-lg-6" style="margin-top: 20px;">
       <video class="w-100" controls >
-        <source class="video" src="web_gyak_video.mp4" type="video/mp4">
+        <source class="video" src="/web_gyak_video.mp4" type="video/mp4">
       </video>
     </div>
   </div>
