@@ -1,4 +1,6 @@
 <div class="tablazat">
+<h2>Weboldalunk témája</h2>
+<div>A weboldalunkon a Forma 1 a fő téma kivétel az ezen oldalon található videók és térkép</div>
 <div class="container d-flex align-items-center justify-content-center" style="margin:auto; height: fit-content;">
   <div class="row justify-content-center" style="margin-bottom: 5px;">
     <div class="col-12 col-md-12 col-lg-6" style="margin-top: 20px;">

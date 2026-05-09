@@ -1,6 +1,6 @@
 <?php
 $ablakcim = array(
-    'cim' => 'Mini honlap Kft.',
+    'cim' => 'Gyak beadando',
 );
 
 $fejlec = array(
